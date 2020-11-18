@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Aegis</string>
+    <string name="Dashboard">Dashboard</string>
+    <string-array name="professions">
+        <item>Bachelor</item>
+        <item>Home-maker</item>
+        <item>Job-seeker</item>
+        <item>Working Professional</item>
+    </string-array>
+</resources>
