@@ -1,16 +1,24 @@
 package com.example.aegis;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
     private CardView todo,schedule,grocery,bills,diary;
     private Toolbar toolbar;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +36,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         grocery.setOnClickListener(this);
         bills.setOnClickListener(this);
         diary.setOnClickListener(this);
+        mAuth= FirebaseAuth.getInstance();
+        FirebaseUser mUser=mAuth.getCurrentUser();
+        String uID=mUser.getUid();
     }
 
     @Override
@@ -36,22 +47,43 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.todo:
                 i=new Intent(this,Todo.class);
+                startActivity(i);
                 break;
             case R.id.schedule:
                 i=new Intent(this,Schedule.class);
+                startActivity(i);
                 break;
             case R.id.grocery:
                 i=new Intent(this,Grocery.class);
+                startActivity(i);
                 break;
             case R.id.bills:
                 i=new Intent(this,Bills.class);
+                startActivity(i);
                 break;
             case R.id.diary:
                 i=new Intent(this,Diary.class);
+                startActivity(i);
                 break;
             default:
                 break;
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case(R.id.logout):
+                mAuth.signOut();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
