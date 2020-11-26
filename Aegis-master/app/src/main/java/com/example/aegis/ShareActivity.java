@@ -2,10 +2,13 @@ package com.example.aegis;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,7 +21,6 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class ShareActivity extends AppCompatActivity {
-    private final String stringFile = Environment.getExternalStorageDirectory().getPath() + File.separator + "Test.pdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,13 @@ public class ShareActivity extends AppCompatActivity {
 
 
     public void buttonShareFile(View view){
-        File file = new File(stringFile);
-        if (!file.exists()){
-            Toast.makeText(this, "File doesn't exists", Toast.LENGTH_LONG).show();
-            return;
-        }
-        Intent intentShare = new Intent(Intent.ACTION_SEND);
-        intentShare.setType("application/pdf");
-        intentShare.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+file));
-        startActivity(Intent.createChooser(intentShare, "Share the file ..."));
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        final File photoFile = new File(getFilesDir(), "Image.jpg");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+        shareIntent.setType("image/*");
+        String str="whatsapp";
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_file)));
     }
 
     public void buttonShareText(View view){
