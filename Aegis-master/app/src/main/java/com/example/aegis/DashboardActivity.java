@@ -8,9 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private CardView todo,schedule,grocery,bills,diary;
+    private CardView todo,schedule,grocery,bills,diary,share;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     @Override
@@ -36,32 +34,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         grocery=(CardView) findViewById(R.id.grocery);
         bills=(CardView) findViewById(R.id.bills);
         diary=(CardView) findViewById(R.id.diary);
+        share=(CardView) findViewById(R.id.share);
         todo.setOnClickListener(this);
         schedule.setOnClickListener(this);
         grocery.setOnClickListener(this);
         bills.setOnClickListener(this);
         diary.setOnClickListener(this);
+        share.setOnClickListener(this);
         mAuth= FirebaseAuth.getInstance();
         FirebaseUser mUser=mAuth.getCurrentUser();
         String uID=mUser.getUid();
-
-        ImageView whatsapp = findViewById(R.id.sharing);
-        whatsapp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) whatsapp.getDrawable();
-                Bitmap bitmap = bitmapDrawable.getBitmap();
-                String bitpath = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,"Whatsapp",null);
-
-
-                Uri uri=Uri.parse(bitpath);
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("image/*");
-                shareIntent.setPackage("com.whatsapp");
-                shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
-                startActivity(Intent.createChooser(shareIntent,"Share using"));
-            }
-        });
     }
 
     @Override
@@ -86,6 +68,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.diary:
                 i=new Intent(this,Diary.class);
+                startActivity(i);
+                break;
+            case R.id.share:
+                i=new Intent(this,ShareActivity.class);
                 startActivity(i);
                 break;
             default:
