@@ -1,54 +1,76 @@
 package com.example.aegis;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import java.io.File;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Toast;
+import android.app.Activity;
+import android.content.Intent;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import java.io.File;
-
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
-public class ShareActivity extends AppCompatActivity {
+public class ShareActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shareactivity);
-        ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+        setContentView(R.layout.activity_main);
 
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+        // listeners of our two buttons
+        View.OnClickListener handler = new View.OnClickListener() {
+            public void onClick(View v) {
+                switch (v.getId()) {
+
+                    case R.id.buttonShareTextUrl:
+                        shareTextUrl();
+                        break;
+
+                    case R.id.buttonShareImage:
+                        shareImage();
+                        break;
+                }
+            }
+        };
+
+        // our buttons
+        findViewById(R.id.buttonShareTextUrl).setOnClickListener(handler);
+        findViewById(R.id.buttonShareImage).setOnClickListener(handler);
+
+    }
+
+    // Method to share either text or URL.
+    private void shareTextUrl() {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        // Add data to the intent, the receiving app will decide
+        // what to do with it.
+        share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
+        share.putExtra(Intent.EXTRA_TEXT, "http://www.codeofaninja.com");
+
+        startActivity(Intent.createChooser(share, "Share link!"));
     }
 
 
-    public void buttonShareFile(View view){
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        final File photoFile = new File(getFilesDir(), "Image.jpg");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
-        shareIntent.setType("image/*");
-        String str="whatsapp";
-        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_file)));
+    // Method to share any image.
+    private void shareImage() {
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // If you want to share a png image only, you can do:
+        // setType("image/png"); OR for jpeg: setType("image/jpeg");
+        share.setType("image/*");
+
+        // Make sure you put example png image named myImage.png in your
+        // directory
+        String imagePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Image.png";
+
+        File imageFileToShare = new File(imagePath);
+
+        Uri uri = Uri.fromFile(imageFileToShare);
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(share, "Share Image!"));
     }
 
-    public void buttonShareText(View view){
-        Intent intentShare = new Intent(Intent.ACTION_SEND);
-        intentShare.setType("text/plain");
-        intentShare.putExtra(Intent.EXTRA_SUBJECT,"My Subject Here ... ");
-        intentShare.putExtra(Intent.EXTRA_TEXT,"My Text of the message goes here ... write anything what you want");
-
-        startActivity(Intent.createChooser(intentShare, "Shared the text ..."));
-    }
 }

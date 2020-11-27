@@ -3,6 +3,7 @@
     <string name="Dashboard">Dashboard</string>
     <string name="share_file">Share File</string>
     <string name="share_text">Share Text</string>
+    <string name="share_image">Share Image</string>
     <string-array name="professions">
         <item>Bachelor</item>
         <item>Home-maker</item>

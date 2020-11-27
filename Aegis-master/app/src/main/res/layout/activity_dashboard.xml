@@ -256,7 +256,6 @@
                     android:layout_height="64dp"
                     android:background="@drawable/circlebg1"
                     android:src="@drawable/ic_baseline_share_24"
-                    android:id="@+id/sharing"
                     android:padding="10dp"/>
 
                 <TextView
