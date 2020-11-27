@@ -1,10 +1,7 @@
 package com.example.aegis;
 
-import java.io.File;
-
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.app.Activity;
 import android.content.Intent;
@@ -55,23 +52,16 @@ public class Share extends Activity {
 
     // Method to share any image.
     private void shareImage() {
-        Intent share = new Intent(Intent.ACTION_SEND);
+        Uri imageUri;
+        Intent intent;
 
-        // If you want to share a png image only, you can do:
-        // setType("image/png"); OR for jpeg: setType("image/jpeg");
-        share.setType("image/*");
-
-        // Make sure you put example png image named myImage.png in your
-        // directory
-        String imagePath = Environment.getExternalStorageDirectory()
-                + "/myImage.png";
-
-        File imageFileToShare = new File(imagePath);
-
-        Uri uri = Uri.fromFile(imageFileToShare);
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-
-        startActivity(Intent.createChooser(share, "Share Image!"));
+        imageUri = Uri.parse("android.resource://" + getPackageName()+ "/drawable/" + "ic_diary");
+        intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello");
+        intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        intent.setType("image/*");
+        startActivity(intent);
     }
 
 }
