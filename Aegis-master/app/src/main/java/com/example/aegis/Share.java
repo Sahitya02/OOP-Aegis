@@ -9,12 +9,12 @@ import android.view.View;
 import android.app.Activity;
 import android.content.Intent;
 
-public class ShareActivity extends Activity {
+public class Share extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_share);
 
         // listeners of our two buttons
         View.OnClickListener handler = new View.OnClickListener() {
@@ -63,7 +63,8 @@ public class ShareActivity extends Activity {
 
         // Make sure you put example png image named myImage.png in your
         // directory
-        String imagePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Image.png";
+        String imagePath = Environment.getExternalStorageDirectory()
+                + "/myImage.png";
 
         File imageFileToShare = new File(imagePath);
 

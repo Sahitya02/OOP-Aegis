@@ -71,7 +71,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 startActivity(i);
                 break;
             case R.id.share:
-                i=new Intent(this,ShareActivity.class);
+                i=new Intent(this,Share.class);
                 startActivity(i);
                 break;
             default:

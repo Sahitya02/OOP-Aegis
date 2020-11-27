@@ -237,7 +237,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/share"
             android:foreground="?android:attr/selectableItemBackground"
@@ -257,13 +256,12 @@
                     android:background="@drawable/circlebg1"
                     android:src="@drawable/ic_baseline_share_24"
                     android:padding="10dp"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Share"
-                    android:textStyle="bold" />
+                    android:text="Diary"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -273,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Share Somethinng"
+                    android:text="How was your day?"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 
