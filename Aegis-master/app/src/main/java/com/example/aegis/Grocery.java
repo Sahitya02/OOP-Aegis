@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.TextUtils;
@@ -32,6 +33,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import Model.Data;
@@ -48,6 +50,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
     private String type;
     private String quantity;
     private String postkey;
+    private ArrayList<String> items = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +150,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v){
                 String mitem=item.getText().toString().trim();
+                items.add(mitem);
                 String mquantity=quantity.getText().toString().trim();
                 if(TextUtils.isEmpty(mitem)){
                     item.setError("Item Name Required");
@@ -198,6 +202,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         AlertDialog dialog=mydialog.create();
         dialog.setView(upview);
         EditText update_item=upview.findViewById(R.id.Edit_item);
+        items.remove(update_item);
         EditText update_quantity=upview.findViewById(R.id.Edit_quantity);
         update_item.setText(type);
         update_item.setSelection(type.length());
@@ -209,6 +214,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 String uptype=update_item.getText().toString().trim();
+                items.add(uptype);
                 String upquantity=update_quantity.getText().toString().trim();
                 if(TextUtils.isEmpty(uptype)){
                     update_item.setError("Item Name Required");
@@ -229,6 +235,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                items.remove(type);
                 String id=postkey;
                 mDatabase.child(id).removeValue();
                 Toast.makeText(Grocery.this,"Item deleted",Toast.LENGTH_SHORT).show();

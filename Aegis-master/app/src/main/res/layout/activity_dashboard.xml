@@ -239,7 +239,6 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/share"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="160dp"
@@ -254,8 +253,9 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/circlebg2"
-                    android:src="@drawable/ic_diary"
+                    android:background="@drawable/circlebg1"
+                    android:src="@drawable/ic_baseline_share_24"
+                    android:id="@+id/sharing"
                     android:padding="10dp"/>
 
                 <TextView
