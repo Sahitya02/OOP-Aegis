@@ -6,20 +6,17 @@ import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private CardView todo,schedule,grocery,bills,diary,share;
+    private CardView todo,schedule,grocery,bills,diary,map,share;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     @Override
@@ -34,13 +31,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         grocery=(CardView) findViewById(R.id.grocery);
         bills=(CardView) findViewById(R.id.bills);
         diary=(CardView) findViewById(R.id.diary);
+        map=(CardView) findViewById(R.id.map);
         share=(CardView) findViewById(R.id.share);
         todo.setOnClickListener(this);
         schedule.setOnClickListener(this);
         grocery.setOnClickListener(this);
         bills.setOnClickListener(this);
         diary.setOnClickListener(this);
+        map.setOnClickListener(this);
         share.setOnClickListener(this);
+
         mAuth= FirebaseAuth.getInstance();
         FirebaseUser mUser=mAuth.getCurrentUser();
         String uID=mUser.getUid();
@@ -68,6 +68,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.diary:
                 i=new Intent(this,Diary.class);
+                startActivity(i);
+                break;
+            case R.id.map:
+                i=new Intent(this,Map.class);
                 startActivity(i);
                 break;
             case R.id.share:

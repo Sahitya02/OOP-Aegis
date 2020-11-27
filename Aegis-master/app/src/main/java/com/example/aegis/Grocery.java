@@ -53,7 +53,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
     private String type;
     private String quantity;
     private String postkey;
-    public ArrayList<String> items = new ArrayList<String>();
+    public static ArrayList<String> items = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +131,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         };
         adapter.startListening();
         recyclerView.setAdapter(adapter);
-        }
+    }
 
     @Override
     public void onClick(View v) {
