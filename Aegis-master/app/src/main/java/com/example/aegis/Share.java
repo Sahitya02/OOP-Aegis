@@ -7,8 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 public class Share extends Activity {
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
@@ -44,7 +42,7 @@ public class Share extends Activity {
         // Add data to the intent, the receiving app will decide
         // what to do with it.
         share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
-        share.putExtra(Intent.EXTRA_TEXT, "http://www.codeofaninja.com");
+        share.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");
 
         startActivity(Intent.createChooser(share, "Share link!"));
     }

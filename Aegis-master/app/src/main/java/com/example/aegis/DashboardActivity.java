@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private CardView todo,schedule,grocery,bills,diary,map,share;
+    private CardView todo,schedule,grocery,bills,diary,map;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     @Override
@@ -32,14 +32,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         bills=(CardView) findViewById(R.id.bills);
         diary=(CardView) findViewById(R.id.diary);
         map=(CardView) findViewById(R.id.map);
-        share=(CardView) findViewById(R.id.share);
         todo.setOnClickListener(this);
         schedule.setOnClickListener(this);
         grocery.setOnClickListener(this);
         bills.setOnClickListener(this);
         diary.setOnClickListener(this);
         map.setOnClickListener(this);
-        share.setOnClickListener(this);
 
         mAuth= FirebaseAuth.getInstance();
         FirebaseUser mUser=mAuth.getCurrentUser();
@@ -72,10 +70,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.map:
                 i=new Intent(this,Map.class);
-                startActivity(i);
-                break;
-            case R.id.share:
-                i=new Intent(this,Share.class);
                 startActivity(i);
                 break;
             default:

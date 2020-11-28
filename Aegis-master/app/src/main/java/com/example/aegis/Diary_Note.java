@@ -22,7 +22,7 @@ import java.util.HashSet;
 public class Diary_Note extends AppCompatActivity {
     private Toolbar toolbar;
     int noteID;
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary__note);
@@ -62,5 +62,26 @@ public class Diary_Note extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_share_diary,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.diary_share):
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
+                share.putExtra(Intent.EXTRA_TEXT, Diary.diary.get(noteID));
+
+                startActivity(Intent.createChooser(share, "Share"));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

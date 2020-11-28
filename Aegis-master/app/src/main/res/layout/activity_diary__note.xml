@@ -10,6 +10,7 @@
         android:id="@+id/grocery_toolbar"
         layout="@layout/toolbar" />
 
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="378dp"
