@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aegis">
-        <activity android:name=".Share"></activity>
+        <activity android:name=".Todo_Note"></activity>
+        <activity android:name=".Share" />
         <activity
             android:name=".Map"
             android:label="@string/title_activity_map" />
@@ -48,10 +49,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".MyAlarm"
+
+        <receiver
+            android:name=".MyAlarm"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
     </application>
 
 </manifest>
