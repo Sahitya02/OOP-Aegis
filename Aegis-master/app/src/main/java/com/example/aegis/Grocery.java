@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +55,7 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
     private String type;
     private String quantity;
     private String postkey;
-    public static ArrayList<String> items = new ArrayList<String>();
+    public static ArrayList<Data> items = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +135,8 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         recyclerView.setAdapter(adapter);
     }
 
+
+
     @Override
     public void onClick(View v) {
         customdialog();
@@ -153,7 +157,6 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v){
                 String mitem=item.getText().toString().trim();
-                items.add(mitem);
                 String mquantity=quantity.getText().toString().trim();
                 if(TextUtils.isEmpty(mitem)){
                     item.setError("Item Name Required");
@@ -205,19 +208,18 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         AlertDialog dialog=mydialog.create();
         dialog.setView(upview);
         EditText update_item=upview.findViewById(R.id.Edit_item);
-        items.remove(update_item);
         EditText update_quantity=upview.findViewById(R.id.Edit_quantity);
         update_item.setText(type);
         update_item.setSelection(type.length());
         update_quantity.setText(quantity);
         update_quantity.setSelection(quantity.length());
+        String date= DateFormat.getDateInstance().format(new Date());
         Button update=upview.findViewById(R.id.grocery_update);
         Button delete=upview.findViewById(R.id.grocery_delete);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String uptype=update_item.getText().toString().trim();
-                items.add(uptype);
                 String upquantity=update_quantity.getText().toString().trim();
                 if(TextUtils.isEmpty(uptype)){
                     update_item.setError("Item Name Required");
@@ -238,7 +240,6 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                items.remove(type);
                 String id=postkey;
                 mDatabase.child(id).removeValue();
                 Toast.makeText(Grocery.this,"Item deleted",Toast.LENGTH_SHORT).show();
@@ -246,24 +247,5 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
             }
         });
         dialog.show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu,menu);
-        MenuItem item = menu.findItem(R.id.item_search);
-        SearchView searchview = (SearchView) item.getActionView();
-        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
     }
 }
