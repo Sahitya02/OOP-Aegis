@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFCFC"
     tools:context=".MainActivity">
 
     <EditText
@@ -69,7 +70,7 @@
         android:layout_marginRight="104dp"
         android:clickable="true"
         android:text="SignUp"
-        android:textColor="#FF0404"
+        android:textColor="#00FF33"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
