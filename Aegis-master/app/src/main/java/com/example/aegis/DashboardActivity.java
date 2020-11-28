@@ -13,10 +13,9 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private CardView todo,schedule,grocery,bills,diary,map;
+    private CardView todo,schedule,grocery,bills,diary,map,share;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     @Override
@@ -32,12 +31,14 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         bills=(CardView) findViewById(R.id.bills);
         diary=(CardView) findViewById(R.id.diary);
         map=(CardView) findViewById(R.id.map);
+        share=(CardView) findViewById(R.id.CustomList);
         todo.setOnClickListener(this);
         schedule.setOnClickListener(this);
         grocery.setOnClickListener(this);
         bills.setOnClickListener(this);
         diary.setOnClickListener(this);
         map.setOnClickListener(this);
+        share.setOnClickListener(this);
 
         mAuth= FirebaseAuth.getInstance();
         FirebaseUser mUser=mAuth.getCurrentUser();
@@ -72,6 +73,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 i=new Intent(this,Map.class);
                 startActivity(i);
                 break;
+            case R.id.CustomList:
+                i=new Intent(this, CustomList.class);
+                startActivity(i);
+                break;
             default:
                 break;
         }
@@ -88,7 +93,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (item.getItemId()){
             case(R.id.logout):
                 mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

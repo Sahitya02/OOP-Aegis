@@ -55,7 +55,6 @@ public class Grocery extends AppCompatActivity implements View.OnClickListener {
     private String type;
     private String quantity;
     private String postkey;
-    public static ArrayList<Data> items = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

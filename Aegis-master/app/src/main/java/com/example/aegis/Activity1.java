@@ -43,38 +43,39 @@ import java.util.Date;
 
 import Model.Data;
 
-public class Bills extends AppCompatActivity implements View.OnClickListener {
+public class Activity1 extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private FloatingActionButton add;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private FirebaseRecyclerOptions<Data> options;
-    private FirebaseRecyclerAdapter<Data,MyViewHolder> adapter;
+    private FirebaseRecyclerAdapter<Data, MyViewHolder> adapter;
     private TextView itemcount;
     private String type;
     private String quantity;
     private String postkey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bills);
+        setContentView(R.layout.activity_grocery);
 
-        toolbar=findViewById(R.id.grocery_toolbar);
+        toolbar = findViewById(R.id.grocery_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Bills");
+        getSupportActionBar().setTitle("Grocery List");
 
-        itemcount=findViewById(R.id.Grocery_count);
+        itemcount = findViewById(R.id.Grocery_count);
 
-        mAuth=FirebaseAuth.getInstance();
-        FirebaseUser mUser=mAuth.getCurrentUser();
-        String uID=mUser.getUid();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("Bills").child(uID);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String uID = mUser.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Activity1").child(uID);
         mDatabase.keepSynced(true);
 
-        recyclerView=findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.recycler);
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
 
@@ -84,11 +85,11 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                double count=0;
-                for(DataSnapshot snap:snapshot.getChildren()){
-                    Data data=snap.getValue(Data.class);
-                    count+=Double.parseDouble(data.getQuantity());
-                    String ct=String.valueOf(count);
+                int count = 0;
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Data data = snap.getValue(Data.class);
+                    count += 1;
+                    String ct = String.valueOf(count);
                     itemcount.setText(ct);
                 }
             }
@@ -99,12 +100,12 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        add=findViewById(R.id.add);
+        add = findViewById(R.id.add);
         add.setOnClickListener(this);
 
-        Query query=mDatabase.orderByKey();
-        options=new FirebaseRecyclerOptions.Builder<Data>().setQuery(query,Data.class).build();
-        adapter=new FirebaseRecyclerAdapter<Data, MyViewHolder>(options) {
+        Query query = mDatabase.orderByKey();
+        options = new FirebaseRecyclerOptions.Builder<Data>().setQuery(query, Data.class).build();
+        adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder viewHolder, int i, @NonNull Data data) {
                 viewHolder.setDate(data.getDate());
@@ -113,9 +114,9 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
                 viewHolder.myView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        postkey=getRef(i).getKey();
-                        type=data.getItem();
-                        quantity=data.getQuantity();
+                        postkey = getRef(i).getKey();
+                        type = data.getItem();
+                        quantity = data.getQuantity();
                         updateData();
                     }
                 });
@@ -124,9 +125,9 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                LayoutInflater Inflater=LayoutInflater.from(parent.getContext());
-                View view=Inflater.inflate(R.layout.item_data,parent,false);
-                MyViewHolder holder=new MyViewHolder(view);
+                LayoutInflater Inflater = LayoutInflater.from(parent.getContext());
+                View view = Inflater.inflate(R.layout.item_data, parent, false);
+                MyViewHolder holder = new MyViewHolder(view);
                 return holder;
             }
         };
@@ -135,41 +136,41 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
         customdialog();
     }
-    private void customdialog(){
-        AlertDialog.Builder mydialog=new AlertDialog.Builder(Bills.this);
-        LayoutInflater Inflater=LayoutInflater.from(Bills.this);
-        View myview=Inflater.inflate(R.layout.bill_input,null);
 
-        AlertDialog dialog=mydialog.create();
+    private void customdialog() {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Activity1.this);
+        LayoutInflater Inflater = LayoutInflater.from(Activity1.this);
+        View myview = Inflater.inflate(R.layout.input, null);
+
+        AlertDialog dialog = mydialog.create();
         dialog.setView(myview);
 
-        EditText item=myview.findViewById(R.id.bill_item);
-        EditText quantity=myview.findViewById(R.id.bill_quantity);
+        EditText item = myview.findViewById(R.id.item);
+        EditText quantity = myview.findViewById(R.id.quantity);
 
-        Button save=myview.findViewById(R.id.bill_save);
-        save.setOnClickListener(new View.OnClickListener(){
+        Button save = myview.findViewById(R.id.grocery_save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                String mitem=item.getText().toString().trim();
-                String mquantity=quantity.getText().toString().trim();
-                if(TextUtils.isEmpty(mitem)){
+            public void onClick(View v) {
+                String mitem = item.getText().toString().trim();
+                String mquantity = quantity.getText().toString().trim();
+                if (TextUtils.isEmpty(mitem)) {
                     item.setError("Item Name Required");
                     return;
                 }
-                if(TextUtils.isEmpty(mquantity)){
+                if (TextUtils.isEmpty(mquantity)) {
                     quantity.setError("Quantity Required");
                     return;
                 }
-                String id=mDatabase.push().getKey();
-                String date= DateFormat.getDateInstance().format(new Date());
-                Data data=new Data(mitem,mquantity,date,id);
+                String id = mDatabase.push().getKey();
+                String date = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(mitem, mquantity, date, id);
                 mDatabase.child(id).setValue(data);
-                Toast.makeText(Bills.this,"Item added to your list",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity1.this, "Item added to your list", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -177,71 +178,78 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
         dialog.show();
 
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
     }
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         View myView;
-        public MyViewHolder(View itemView){
+
+        public MyViewHolder(View itemView) {
             super(itemView);
-            myView=itemView;
+            myView = itemView;
         }
-        public void setType(String type){
-            TextView mytype=myView.findViewById(R.id.type);
+
+        public void setType(String type) {
+            TextView mytype = myView.findViewById(R.id.type);
             mytype.setText(type);
         }
-        public void setDate(String date){
-            TextView myDate=myView.findViewById(R.id.date);
+
+        public void setDate(String date) {
+            TextView myDate = myView.findViewById(R.id.date);
             myDate.setText(date);
         }
-        public void setCount(String count){
-            TextView myCount=myView.findViewById(R.id.count);
+
+        public void setCount(String count) {
+            TextView myCount = myView.findViewById(R.id.count);
             myCount.setText(count);
         }
     }
-    public void updateData(){
-        AlertDialog.Builder mydialog=new AlertDialog.Builder(Bills.this);
-        LayoutInflater Inflater=LayoutInflater.from(Bills.this);
-        View upview=Inflater.inflate(R.layout.bill_input_update,null);
-        AlertDialog dialog=mydialog.create();
+
+    public void updateData() {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Activity1.this);
+        LayoutInflater Inflater = LayoutInflater.from(Activity1.this);
+        View upview = Inflater.inflate(R.layout.update_input, null);
+        AlertDialog dialog = mydialog.create();
         dialog.setView(upview);
-        EditText update_item=upview.findViewById(R.id.Edit_bill_item);
-        EditText update_quantity=upview.findViewById(R.id.Edit_bill_quantity);
+        EditText update_item = upview.findViewById(R.id.Edit_item);
+        EditText update_quantity = upview.findViewById(R.id.Edit_quantity);
         update_item.setText(type);
         update_item.setSelection(type.length());
         update_quantity.setText(quantity);
         update_quantity.setSelection(quantity.length());
-        String date= DateFormat.getDateInstance().format(new Date());
-        Button update=upview.findViewById(R.id.bill_item);
-        Button delete=upview.findViewById(R.id.bill_delete);
+        String date = DateFormat.getDateInstance().format(new Date());
+        Button update = upview.findViewById(R.id.grocery_update);
+        Button delete = upview.findViewById(R.id.grocery_delete);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uptype=update_item.getText().toString().trim();
-                String upquantity=update_quantity.getText().toString().trim();
-                if(TextUtils.isEmpty(uptype)){
+                String uptype = update_item.getText().toString().trim();
+                String upquantity = update_quantity.getText().toString().trim();
+                if (TextUtils.isEmpty(uptype)) {
                     update_item.setError("Item Name Required");
                     return;
                 }
-                if(TextUtils.isEmpty(upquantity)){
+                if (TextUtils.isEmpty(upquantity)) {
                     update_quantity.setError("Quantity Required");
                     return;
                 }
-                String id=postkey;
-                String date= DateFormat.getDateInstance().format(new Date());
-                Data data=new Data(uptype,upquantity,date,id);
+                String id = postkey;
+                String date = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(uptype, upquantity, date, id);
                 mDatabase.child(id).setValue(data);
-                Toast.makeText(Bills.this,"Item updated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity1.this, "Item updated", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id=postkey;
+                String id = postkey;
                 mDatabase.child(id).removeValue();
-                Toast.makeText(Bills.this,"Item deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity1.this, "Item deleted", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

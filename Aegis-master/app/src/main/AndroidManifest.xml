@@ -17,8 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aegis">
-        <activity android:name=".Todo_Note"></activity>
-        <activity android:name=".Share" />
+        <activity android:name=".Activity5"></activity>
+        <activity android:name=".Activity4" />
+        <activity android:name=".Activity3" />
+        <activity android:name=".Activity2" />
+        <activity android:name=".Activity1" />
+        <activity android:name=".CustomList" />
         <activity
             android:name=".Map"
             android:label="@string/title_activity_map" />

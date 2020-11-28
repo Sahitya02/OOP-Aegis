@@ -1,195 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:theme="@style/Theme.Aegis"
-    tools:context=".MainActivity">
-
+    android:background="@android:color/darker_gray"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/ll"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
         android:background="#fcfcfc"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <include
-            android:id="@+id/dashboard_toolbar"
-            layout="@layout/toolbar"
-            android:background="#000000"
-            app:titleTextColor="@color/backgroundcolor" />
-
+        android:id="@+id/ll">
+        <include layout="@layout/toolbar"
+            android:id="@+id/dashboard_toolbar"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:gravity="center"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:id="@+id/todo"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
+                android:layout_margin="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/circlebg2"
-                        android:padding="10dp"
-                        android:src="@drawable/ic__6122125831535701996" />
-
+                        android:src="@drawable/ic__6122125831535701996"
+                        android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="TO-DO List"
-                        android:textStyle="bold" />
-
+                        android:text="TO-DO List"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="5dp"
                         android:text="Let's get these tasks done!"
-                        android:textColor="@android:color/darker_gray" />
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/schedule"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
+                android:layout_margin="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/circlebg1"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_daily_schedule" />
-
+                        android:src="@drawable/ic_daily_schedule"
+                        android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Your Schedule"
-                        android:textStyle="bold" />
-
+                        android:text="Your Schedule"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="5dp"
                         android:text="What next?"
-                        android:textColor="@android:color/darker_gray" />
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
             android:clipToPadding="false"
             android:gravity="center"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                 android:id="@+id/grocery"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
+                android:layout_margin="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/circlebg4"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_grocerylist" />
-
+                        android:src="@drawable/ic_grocerylist"
+                        android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Grocery List"
-                        android:textStyle="bold" />
-
+                        android:text="Grocery List"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="5dp"
                         android:text="Items you need to buy"
-                        android:textColor="@android:color/darker_gray" />
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/bills"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:layout_margin="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -225,103 +195,134 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:gravity="center"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                 android:id="@+id/diary"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
+                android:layout_margin="10dp">
                 <LinearLayout
 
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/circlebg2"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_diary" />
-
+                        android:src="@drawable/ic_diary"
+                        android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Diary"
-                        android:textStyle="bold" />
-
+                        android:text="Diary"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="5dp"
                         android:text="How was your day?"
-                        android:textColor="@android:color/darker_gray" />
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/map"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
                 android:layout_width="160dp"
                 android:layout_height="190dp"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
+                android:layout_margin="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/circlebg3"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_baseline_location_on_24" />
-
+                        android:src="@drawable/ic_baseline_location_on_24"
+                        android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Nearby Places"
-                        android:textStyle="bold" />
-
+                        android:text="Nearby Places"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_margin="10dp"
-                        android:background="@color/lightgray" />
-
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="5dp"
                         android:text="What's around?"
-                        android:textColor="@android:color/darker_gray" />
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CustomList"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_width="160dp"
+                android:layout_height="190dp"
+                android:layout_margin="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/circlebg1"
+                        android:src="@drawable/ic_custom_lists"
+                        android:padding="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:text="Custom Lists"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/lightgray"
+                        android:layout_margin="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Create your own list"
+                        android:padding="5dp"
+                        android:textColor="@android:color/darker_gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
