@@ -213,7 +213,7 @@ public class Bills extends AppCompatActivity implements View.OnClickListener {
         update_quantity.setText(quantity);
         update_quantity.setSelection(quantity.length());
         String date= DateFormat.getDateInstance().format(new Date());
-        Button update=upview.findViewById(R.id.bill_item);
+        Button update=upview.findViewById(R.id.bill_update);
         Button delete=upview.findViewById(R.id.bill_delete);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
